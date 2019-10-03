@@ -49,3 +49,23 @@ let triangle n str =  (* Meme logique que pour le square main en remplacant le n
 				(build_line i str) ^ "\n" ^ main_triangle (i+1) str
 		in 
 		print_string(main_triangle 1 str);;
+		
+(* BONUS *) 
+let pyramide n strs =
+  if n <= 0 then
+    invalid_arg "n <=0 "
+  else
+    let center   pos (str1, str2) =
+    (*str1 n-pos fois puis str2 2pos fois puis str1 n-pos fois*)
+      (build_line (n-pos) str1) ^ (build_line (2*pos) str2) ^ (build_line (n-pos)
+                                                                 str1)^"\n"
+    in
+    let rec main_pyramide (str1, str2)  i =
+      match i with
+          _ when i = n -> build_line n str2 ^ "\n" 
+        |_ when i = (n-1) ->  center i strs
+        |_-> center i (str1,str2) ^ main_pyramide  (str1,str2) (i+1)
+    in
+    print_string(main_pyramide strs 1);;
+
+pyramide 5 (".", "*");;
